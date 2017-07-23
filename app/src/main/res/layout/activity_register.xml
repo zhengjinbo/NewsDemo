@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/login"
+            android:layout_below="@+id/imageView3"
+            android:hint="请输入邮箱"
+            >
+        </EditText>
+
+
+        <EditText
+            android:id="@+id/etUserName"
+            style="@style/login"
+            android:layout_below="@+id/etEmail"
+            android:hint="请输入账号">
+        </EditText>
+
+        <EditText
+            android:id="@+id/etPassWord"
+            style="@style/login"
+            android:layout_below="@+id/etUserName"
+            android:hint="请输入密码"
+            >
+        </EditText>
+
+        <Button
+            android:id="@+id/btn_register"
+            style="@style/login"
+            android:layout_below="@+id/etPassWord"
+            android:text=" 注 册 "
+            />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
