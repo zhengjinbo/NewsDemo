@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.activity.LoginActivity;
+import com.zhengjinbo.newsdemo.activity.PersonInfoActivity;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
 
 import butterknife.BindView;
@@ -24,6 +26,9 @@ public class MeFragment
     Toolbar mToolbar;
     @BindView(R.id.iv_avatar)
     ImageView mIvAvatar;
+
+    @BindView(R.id.btn_personInfo)
+    Button btn_personInfo;
 
     @Override
     protected int getLayout() {
@@ -49,6 +54,16 @@ public class MeFragment
                 startActivity(intent);
             }
         });
+
+        btn_personInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PersonInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
 }

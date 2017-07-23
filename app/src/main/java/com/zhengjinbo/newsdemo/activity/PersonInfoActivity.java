@@ -1,5 +1,6 @@
 package com.zhengjinbo.newsdemo.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.base.BaseActivity;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by zhengjinbo.
@@ -22,6 +24,8 @@ public class PersonInfoActivity extends BaseActivity implements View.OnClickList
     Toolbar mToolbar;
     @BindView(R.id.btn_back)
     Button btn_back;
+
+
 
 
     @Override
@@ -48,5 +52,12 @@ public class PersonInfoActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
