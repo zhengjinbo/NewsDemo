@@ -11,8 +11,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.zhengjinbo.newsdemo.R;
+import com.zhengjinbo.newsdemo.VO.RegisterVO;
 import com.zhengjinbo.newsdemo.base.BaseActivity;
-import com.zhengjinbo.newsdemo.bean.NewsClassifyBean;
+import com.zhengjinbo.newsdemo.bean.RegisterBean;
 import com.zhengjinbo.newsdemo.http.HttpUtils;
 import com.zhengjinbo.newsdemo.http.NewsService;
 
@@ -96,35 +97,42 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(RegisterActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                initRequestData();
+                RegisterVO registerVO = new RegisterVO();
+                registerVO.setClient_id("9539058");
+                registerVO.setClient_secret("0fc7ec71da9c30ff76d70a73dd8a32f2");
+                registerVO.setAccount(account);
+                registerVO.setPassword(password);
+                registerVO.setEmail(email);
+
+                initRequestData(registerVO);
                 break;
         }
     }
 
     //注册接口
-    private void initRequestData() {
+    private void initRequestData(RegisterVO registerVO) {
         showDialog();
         //注册账号
-        NewsService service = HttpUtils.requestNetData(NewsService.BASE_URL_TEST, NewsService.class);
-        Call<NewsClassifyBean.TngouBean> classify = service.getNewsClassify();
-        classify.enqueue(new Callback<NewsClassifyBean.TngouBean>() {
+        NewsService service = HttpUtils.requestNetData(NewsService.URL_REGISTER, NewsService.class);
+        Call<RegisterBean> call = service.send(registerVO);
+        call.enqueue(new Callback<RegisterBean>() {
             @Override
-            public void onResponse(Call<NewsClassifyBean.TngouBean> call, Response<NewsClassifyBean.TngouBean> response) {
-                NewsClassifyBean.TngouBean body = response.body();
-                Log.e("zjb注册接口返回", "//"+ new Gson().toJson(body));
+            public void onResponse(Call<RegisterBean> call, Response<RegisterBean> response) {
                 //模拟数据
                 initFakeData();
-                //隐藏加载对话框
-                hideDialog();
+                RegisterBean registerBean = response.body();
+                Log.e("zjb注册接口返回onResponse", "//" + new Gson().toJson(registerBean));
             }
-
-
 
             @Override
-            public void onFailure(Call<NewsClassifyBean.TngouBean> call, Throwable t) {
-
+            public void onFailure(Call<RegisterBean> call, Throwable t) {
+                //隐藏加载对话框
+                hideDialog();
+                Log.e("zjb注册接口返回onFailure", t.toString());
             }
         });
+
+
     }
 
     private void initFakeData() {

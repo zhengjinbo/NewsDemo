@@ -4,10 +4,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.base.BaseActivity;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 

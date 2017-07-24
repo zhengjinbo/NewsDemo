@@ -1,10 +1,16 @@
 package com.zhengjinbo.newsdemo.http;
 
+import com.zhengjinbo.newsdemo.VO.LoginVO;
+import com.zhengjinbo.newsdemo.VO.RegisterVO;
+import com.zhengjinbo.newsdemo.bean.LoginBean;
 import com.zhengjinbo.newsdemo.bean.NewsClassifyBean;
 import com.zhengjinbo.newsdemo.bean.NewsPaperBean;
+import com.zhengjinbo.newsdemo.bean.RegisterBean;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 /**
  * Created by zhengjinbo.
@@ -13,6 +19,18 @@ import retrofit2.http.GET;
 public interface NewsService {
     String BASE_URL = "http://www.tngou.net/api/";
     String BASE_URL_TEST = "http://news-at.zhihu.com/api/4/";
+    String URL_REGISTER = "http://www.tngou.net/api/oauth2/reg/";
+    String URL_LOGIN = "http://www.tngou.net/api/oauth2/login/";
+
+
+    //注册
+    @POST("news/register")
+    Call<RegisterBean> send(@Body RegisterVO registerVO);
+
+    //登陆
+    @POST("news/login")
+    Call<LoginBean> send(@Body LoginVO loginVO);
+
 
     //这个为测试
     @GET("news/latest")
