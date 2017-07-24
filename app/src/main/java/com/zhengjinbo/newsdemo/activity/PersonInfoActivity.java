@@ -1,6 +1,5 @@
 package com.zhengjinbo.newsdemo.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -10,14 +9,14 @@ import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.base.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by zhengjinbo.
  * 个人信息
  */
 
-public class PersonInfoActivity extends BaseActivity implements View.OnClickListener {
+public class PersonInfoActivity extends BaseActivity {
     @BindView(R.id.tvTitle)
     TextView mTvTitle;
     @BindView(R.id.toolbar)
@@ -42,22 +41,14 @@ public class PersonInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initListener() {
-        btn_back.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_back:
-                finish();
-                break;
-        }
+
+
+    @OnClick(R.id.btn_back)
+    public void back(){
+        finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }
