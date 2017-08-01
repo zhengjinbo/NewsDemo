@@ -1,4 +1,4 @@
-package com.zhengjinbo.newsdemo.VO;
+package com.zhengjinbo.newsdemo.vo;
 
 import java.io.Serializable;
 

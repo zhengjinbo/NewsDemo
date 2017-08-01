@@ -12,8 +12,7 @@ import butterknife.BindView;
 /**
  * Created by zhengjinbo.
  */
-public class NewsFragment
-        extends BaseFragment
+public class NewsFragment extends BaseFragment
 {
     @BindView(R.id.tvTitle)
     TextView mTvTitle;

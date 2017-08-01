@@ -1,4 +1,4 @@
-package com.zhengjinbo.newsdemo.Adapter;
+package com.zhengjinbo.newsdemo.adapter;
 
 import android.content.Context;
 import android.widget.TextView;

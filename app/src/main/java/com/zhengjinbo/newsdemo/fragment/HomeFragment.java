@@ -7,19 +7,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
-import com.zhengjinbo.newsdemo.Adapter.HomeGridAdapter;
+import com.zhengjinbo.newsdemo.adapter.HomeGridAdapter;
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.activity.MainActivity;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
 import com.zhengjinbo.newsdemo.bean.NewsClassifyBean;
 import com.zhengjinbo.newsdemo.http.HttpUtils;
 import com.zhengjinbo.newsdemo.http.NewsService;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;

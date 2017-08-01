@@ -18,8 +18,7 @@ import butterknife.Unbinder;
  * Created by zhengjinbo.
  */
 
-public abstract class BaseFragment
-        extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     protected Context mContext;
     private Unbinder mBind;

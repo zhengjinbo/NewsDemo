@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.zhengjinbo.newsdemo.R;
-import com.zhengjinbo.newsdemo.VO.RegisterVO;
+import com.zhengjinbo.newsdemo.vo.RegisterVO;
 import com.zhengjinbo.newsdemo.base.BaseActivity;
 import com.zhengjinbo.newsdemo.bean.RegisterBean;
 import com.zhengjinbo.newsdemo.http.HttpUtils;

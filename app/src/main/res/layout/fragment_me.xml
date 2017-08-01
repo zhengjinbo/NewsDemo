@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
-
+        android:background="@color/colorPrimary"
         >
 
         <ImageView
@@ -21,16 +21,19 @@
             android:layout_marginTop="20dp"
             android:src="@mipmap/avatar"
 
+
             />
 
         <TextView
+            android:id="@+id/tv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_avatar"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:text="请先登录"
+            android:text="点击头像登录"
+            android:textColor="@color/white"
             android:textSize="18sp"
             />
 
@@ -98,12 +101,6 @@
 
     <View style="@style/line"
         />
-
-    <Button
-        android:id="@+id/btn_personInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="个人信息"/>
 
 
 </LinearLayout>

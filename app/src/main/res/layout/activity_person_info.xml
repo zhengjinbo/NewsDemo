@@ -15,63 +15,47 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/rl_touxiang"
-                android:layout_width="match_parent"
-                android:layout_height="80dp">
-
-                <TextView
-                    style="@style/text_arr"
-                    android:text="头像"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer"
-                    style="@style/img_pointer"
-                    />
-
-                <ImageView
-                    android:id="@+id/hshoucang"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer"
-                    android:src="@mipmap/avatar"
-                    />
-            </RelativeLayout>
-
-            <View style="@style/line"/>
 
             <RelativeLayout
-                android:id="@+id/rl_account"
                 style="@style/line_width">
 
                 <TextView
                     style="@style/text_arr"
-                    android:text="账户/昵称"
+                    android:text="用户ID"
                     />
 
-                <ImageView
-                    android:id="@+id/iv_pointer1"
-                    style="@style/img_pointer"
-                    />
 
                 <TextView
+                    android:id="@+id/tv_idname"
                     style="@style/text_arr"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer1"
-                    android:text="郑锦波"
+                    android:layout_marginRight="10dp"
                     />
             </RelativeLayout>
 
             <View style="@style/line"/>
 
             <RelativeLayout
-                android:id="@+id/rl_gender"
+                style="@style/line_width">
+
+                <TextView
+                    style="@style/text_arr"
+                    android:text="用户名"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_account"
+                    style="@style/text_arr"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    />
+            </RelativeLayout>
+
+            <View style="@style/line"/>
+
+            <RelativeLayout
                 style="@style/line_width">
 
                 <TextView
@@ -79,25 +63,18 @@
                     android:text="性别"
                     />
 
-                <ImageView
-                    android:id="@+id/iv_pointer2"
-                    style="@style/img_pointer"
-                    />
-
                 <TextView
+                    android:id="@+id/tv_gender"
                     style="@style/text_arr"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer2"
-                    android:text="保密"
+                    android:layout_marginRight="10dp"
                     />
             </RelativeLayout>
 
             <View style="@style/line"/>
 
             <RelativeLayout
-                android:id="@+id/rl_email"
                 style="@style/line_width">
 
                 <TextView
@@ -105,70 +82,31 @@
                     android:text="邮箱"
                     />
 
-                <ImageView
-                    android:id="@+id/iv_pointer3"
-                    style="@style/img_pointer"
-                    />
-
                 <TextView
+                    android:id="@+id/tv_email"
                     style="@style/text_arr"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer3"
-                    android:text="zjbzheng@163.com"
+                    android:layout_marginRight="10dp"
                     />
             </RelativeLayout>
 
             <View style="@style/line"/>
 
             <RelativeLayout
-                android:id="@+id/rl_birth"
                 style="@style/line_width">
 
                 <TextView
                     style="@style/text_arr"
-                    android:text="出生年月"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer4"
-                    style="@style/img_pointer"
+                    android:text="地点"
                     />
 
                 <TextView
+                    android:id="@+id/tv_location"
                     style="@style/text_arr"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer4"
-                    android:text="2017-07-23"
-                    />
-            </RelativeLayout>
-
-            <View style="@style/line"/>
-
-            <RelativeLayout
-                android:id="@+id/rl_province"
-                style="@style/line_width">
-
-                <TextView
-                    style="@style/text_arr"
-                    android:text="省份"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer5"
-                    style="@style/img_pointer"
-                    />
-
-                <TextView
-                    style="@style/text_arr"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer5"
-                    android:text="广东"
+                    android:layout_marginRight="10dp"
                     />
             </RelativeLayout>
 
@@ -180,204 +118,16 @@
 
                 <TextView
                     style="@style/text_arr"
-                    android:text="城市"
+                    android:text="主页"
                     />
 
-                <ImageView
-                    android:id="@+id/iv_pointer6"
-                    style="@style/img_pointer"
-                    />
 
                 <TextView
+                    android:id="@+id/tv_url"
                     style="@style/text_arr"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer6"
-                    android:text="深圳"
-                    />
-            </RelativeLayout>
-
-            <View style="@style/line"/>
-
-            <RelativeLayout
-                android:id="@+id/rl_title"
-                style="@style/line_width">
-
-                <TextView
-                    style="@style/text_arr"
-                    android:text="个性标题"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer8"
-                    style="@style/img_pointer"
-                    />
-
-                <TextView
-                    style="@style/text_arr"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer8"
-                    android:text="行路者，用足印代替叹息吧"
-                    />
-            </RelativeLayout>
-
-            <View style="@style/line"/>
-
-            <RelativeLayout
-                android:id="@+id/rl_domain"
-                style="@style/line_width">
-
-                <TextView
-                    style="@style/text_arr"
-                    android:text="用户主页域名"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer9"
-                    style="@style/img_pointer"
-                    />
-
-                <TextView
-                    style="@style/text_arr"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer9"
-                    android:text="httt://www.zhengjinbo.com"
-                    />
-            </RelativeLayout>
-
-            <View style="@style/line"/>
-
-            <RelativeLayout
-                android:id="@+id/rl_home"
-                style="@style/line_width">
-
-                <TextView
-                    style="@style/text_arr"
-                    android:text="其他主页"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer10"
-                    style="@style/img_pointer"
-                    />
-
-                <TextView
-                    style="@style/text_arr"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer10"
-                    android:text="httt://www.beijing.com"
-                    />
-            </RelativeLayout>
-
-            <View style="@style/line"/>
-
-
-            <RelativeLayout
-                android:id="@+id/rl_integral"
-                style="@style/line_width">
-
-                <TextView
-                    style="@style/text_arr"
-                    android:text="用户积分"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer11"
-                    style="@style/img_pointer"
-                    />
-
-                <TextView
-                    style="@style/text_arr"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer11"
-                    android:text="2900"
-                    />
-            </RelativeLayout>
-
-            <View style="@style/line"/>
-
-            <RelativeLayout
-                android:id="@+id/rl_phone"
-                style="@style/line_width">
-
-                <TextView
-                    style="@style/text_arr"
-                    android:text="电话"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer12"
-                    style="@style/img_pointer"
-                    />
-
-                <TextView
-                    style="@style/text_arr"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer12"
-                    android:text="15959513139"
-                    />
-            </RelativeLayout>
-
-            <View style="@style/line"/>
-
-            <RelativeLayout
-                android:id="@+id/rl_qq"
-                style="@style/line_width">
-
-                <TextView
-                    style="@style/text_arr"
-                    android:text="QQ"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer13"
-                    style="@style/img_pointer"
-                    />
-
-                <TextView
-                    style="@style/text_arr"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer13"
-                    android:text="785348547"
-                    />
-            </RelativeLayout>
-
-            <View style="@style/line"/>
-
-            <RelativeLayout
-                android:id="@+id/rl_time"
-                style="@style/line_width">
-
-                <TextView
-                    style="@style/text_arr"
-                    android:text="注册时间"
-                    />
-
-                <ImageView
-                    android:id="@+id/iv_pointer7"
-                    style="@style/img_pointer"
-                    />
-
-                <TextView
-                    style="@style/text_arr"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_toLeftOf="@id/iv_pointer7"
-                    android:text="2017-07-23"
+                    android:layout_marginRight="10dp"
                     />
             </RelativeLayout>
 
