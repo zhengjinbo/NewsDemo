@@ -20,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
- * Created by zengxianghui900 on 17/7/30.
+ * Created by zhengjinbo on 17/7/30.
  */
 
 public class TweetRecycleViewAdapter

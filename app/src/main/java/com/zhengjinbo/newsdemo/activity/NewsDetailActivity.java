@@ -21,7 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by zengxianghui900 on 17/7/31.
+ * Created by zhengjinbo.
  */
 public class NewsDetailActivity
         extends BaseActivity

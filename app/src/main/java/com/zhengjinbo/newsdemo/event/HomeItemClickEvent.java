@@ -1,7 +1,7 @@
 package com.zhengjinbo.newsdemo.event;
 
 /**
- * Created by zengxianghui900 on 17/7/23.
+ * Created by zhengjinbo on 17/7/23.
  */
 
 public class HomeItemClickEvent {

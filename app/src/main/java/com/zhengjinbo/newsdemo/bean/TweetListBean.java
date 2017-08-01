@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by zengxianghui900 on 17/7/31.
+ * Created by zhengjinbo on 17/7/31.
  */
 
 public class TweetListBean implements Serializable {
