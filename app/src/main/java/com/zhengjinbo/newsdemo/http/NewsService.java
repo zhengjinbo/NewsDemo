@@ -30,21 +30,21 @@ public interface NewsService {
      * 新闻列表
      */
     @GET("news_list")
-    Call<NewsListBean> getNewsList(@Query("page") int page, @Query("pageSize") int pageSize);
+    Call<NewsListBean> getNewsList(@Query("page") int page, @Query("pageSize") int pageSize,@Query("access_token")String access_token);
 
 
     /**
      * 新闻详情
      */
     @GET("news_detail")
-    Call<NewsDetailBean> getNewsDetail(@Query("id") long id);
+    Call<NewsDetailBean> getNewsDetail(@Query("id") long id, @Query("access_token") String access_token);
 
 
     /**
      * 动弹列表
      */
     @GET("tweet_list")
-    Call<TweetListBean> getTweetList(@Query("page") int page, @Query("pageSize") int pageSize);
+    Call<TweetListBean> getTweetList(@Query("page") int page, @Query("pageSize") int pageSize,@Query("access_token")String access_token);
 
 
     //注册

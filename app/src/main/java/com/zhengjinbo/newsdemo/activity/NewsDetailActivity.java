@@ -3,7 +3,6 @@ package com.zhengjinbo.newsdemo.activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,6 +44,7 @@ public class NewsDetailActivity
     TextView  mTvNewsContent;
     private long mNewsId;
     private int mNewsComments;
+    private String access_token;
 
     @Override
     protected int getLayout() {
@@ -67,7 +67,7 @@ public class NewsDetailActivity
     private void initRequestData() {
         showDialog();
         NewsService newsService = HttpUtils.requestNetData(NewsService.BASE_URL, NewsService.class);
-        Call<NewsDetailBean> detailCall = newsService.getNewsDetail(mNewsId);
+        Call<NewsDetailBean> detailCall = newsService.getNewsDetail(mNewsId,access_token);
         detailCall.enqueue(new Callback<NewsDetailBean>() {
             @Override
             public void onResponse(Call<NewsDetailBean> call, Response<NewsDetailBean> response) {
@@ -107,7 +107,7 @@ public class NewsDetailActivity
         if (intent!= null){
             mNewsId = intent.getIntExtra(AppConstants.NEWS_DETAIL_ID_KEY,0);
             mNewsComments = intent.getIntExtra(AppConstants.NEWS_DETAIL_COMMENT_KEY, 0);
-            Log.e("zxh","getIntentData==mNewsId" + mNewsId + "||mNewsComments==" + mNewsComments);
+            access_token=intent.getStringExtra(AppConstants.ACCESS_TOKEN);
         }
     }
 

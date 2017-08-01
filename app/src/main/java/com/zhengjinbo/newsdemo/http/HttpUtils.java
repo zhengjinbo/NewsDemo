@@ -42,7 +42,7 @@ public class HttpUtils {
         {
             Request request = chain.request();
             HttpUrl httpUrl = request.url().newBuilder()
-                                     .addQueryParameter("access_token", "7ba23777-2dca-4e54-8acb-fcf7bb588d55")
+                              //       .addQueryParameter("access_token", "7ba23777-2dca-4e54-8acb-fcf7bb588d55")
                                      .addQueryParameter("dataType", "json")
                                      .build();
             request = request.newBuilder().url(httpUrl).build();

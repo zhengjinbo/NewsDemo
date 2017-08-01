@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.zhengjinbo.newsdemo.activity.MainActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -18,13 +21,13 @@ import butterknife.Unbinder;
  * Created by zhengjinbo.
  */
 
-public abstract class BaseFragment
-        extends Fragment
-{
+public abstract class BaseFragment extends Fragment {
 
-    private Unbinder       mBind;
-    private ProgressDialog mProgressDialog;
     protected Context mContext;
+    private Unbinder mBind;
+    private ProgressDialog mProgressDialog;
+    protected MainActivity mActivity;
+    protected Handler myHandler;
 
     @Override
     public void onAttach(Activity activity) {
@@ -36,10 +39,11 @@ public abstract class BaseFragment
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState)
-    {
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayout(), container, false);
         mBind = ButterKnife.bind(this, view);
+        mActivity = (MainActivity)getActivity();
+        myHandler =  mActivity.myHandler;
         initDialog();
         initData();
         initListener();
@@ -58,6 +62,7 @@ public abstract class BaseFragment
 
     /**
      * 抽象方法，初始化布局
+     *
      * @return
      */
     protected abstract int getLayout();
@@ -75,8 +80,8 @@ public abstract class BaseFragment
     /**
      * 显示数据加载对话框
      */
-    protected void showDialog(){
-        if (mProgressDialog!= null && !mProgressDialog.isShowing()){
+    protected void showDialog() {
+        if (mProgressDialog != null && !mProgressDialog.isShowing()) {
             mProgressDialog.show();
         }
     }
@@ -84,8 +89,8 @@ public abstract class BaseFragment
     /**
      * 隐藏数据加载对话框
      */
-    protected void hideDialog(){
-        if (mProgressDialog!= null && mProgressDialog.isShowing()){
+    protected void hideDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }
@@ -100,7 +105,7 @@ public abstract class BaseFragment
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mProgressDialog !=null) {
+        if (mProgressDialog != null) {
             mProgressDialog = null;
         }
     }

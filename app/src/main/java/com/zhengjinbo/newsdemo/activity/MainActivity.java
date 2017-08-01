@@ -1,5 +1,7 @@
 package com.zhengjinbo.newsdemo.activity;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,17 +20,30 @@ import com.zhengjinbo.newsdemo.fragment.TweetFragment;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+
 /**
  * Created by zhengjinbo.
  * 主界面
  */
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
 
-    @BindView(R.id.fl_content)
-    FrameLayout mFlContent;
     @BindView(R.id.bottom_navigation_bar)
     public BottomNavigationBar mBottomNavigationBar;
+
+    @BindView(R.id.fl_content)
+    FrameLayout mFlContent;
     private ArrayList<Fragment> mFragmentList;
+    public String access_token="";
+
+
+
+    public Handler myHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            access_token = (String) msg.obj;
+            super.handleMessage(msg);
+        }
+    };
+
 
     @Override
     protected int getLayout() {
@@ -54,7 +69,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.ic_nav_news_actived,
-                                                              AppConstants.TAB_NEWS).setActiveColorResource(R.color.colorPrimary))
+                AppConstants.TAB_NEWS).setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_nav_tweet_actived,
                         AppConstants.TAB_TWEET).setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_nav_my_pressed,
@@ -68,7 +83,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      */
     private void initFragmentList() {
         mFragmentList = new ArrayList<Fragment>();
-        NewsFragment  newsFragment = (NewsFragment) FragmentCommon.newInstance(AppConstants.TAB_NEWS);
+        NewsFragment newsFragment = (NewsFragment) FragmentCommon.newInstance(AppConstants.TAB_NEWS);
         TweetFragment tweetFragment = (TweetFragment) FragmentCommon.newInstance(AppConstants.TAB_TWEET);
 
         MeFragment meFragment = (MeFragment) FragmentCommon.newInstance(AppConstants.TAB_ME);
@@ -109,15 +124,16 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     /**
      * 当调用mBottomNavigationBar.selectTab(int index)时不会走onTabUnselected()方法，
      * 所以要在onTabSelected()中对未选中的进行隐藏
-     * @param position  选中的索引
+     *
+     * @param position 选中的索引
      */
     private void hideUnselected(int position) {
         for (int i = 0; i < mFragmentList.size(); i++) {
-            if (i != position){
+            if (i != position) {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
                 Fragment fragment = mFragmentList.get(i);
-                if (fragment.isAdded() && !fragment.isHidden()){
+                if (fragment.isAdded() && !fragment.isHidden()) {
                     transaction.hide(fragment);
                     transaction.commitAllowingStateLoss();
                 }

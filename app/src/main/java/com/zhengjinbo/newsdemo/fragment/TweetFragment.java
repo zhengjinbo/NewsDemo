@@ -3,12 +3,13 @@ package com.zhengjinbo.newsdemo.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.zhengjinbo.newsdemo.adapter.TweetRecycleViewAdapter;
 import com.zhengjinbo.newsdemo.R;
+import com.zhengjinbo.newsdemo.adapter.TweetRecycleViewAdapter;
 import com.zhengjinbo.newsdemo.base.AppConstants;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
 import com.zhengjinbo.newsdemo.bean.TweetListBean;
@@ -26,14 +27,11 @@ import retrofit2.Response;
 /**
  * Created by zhengjinbo.
  */
-public class TweetFragment
-        extends BaseFragment
-        implements TweetRecycleViewAdapter.OnItemClickLitener
-{
+public class TweetFragment extends BaseFragment implements TweetRecycleViewAdapter.OnItemClickLitener {
     @BindView(R.id.tvTitle)
-    TextView      mTvTitle;
+    TextView mTvTitle;
     @BindView(R.id.toolbar)
-    Toolbar       mToolbar;
+    Toolbar mToolbar;
     @BindView(R.id.x_view)
     XRecyclerView mXView;
     //是否第一次加载数据,默认true
@@ -41,8 +39,25 @@ public class TweetFragment
     //是否加载更多
     private boolean isLoadMore = false;
     //默认加载的页码
-    private int mPage=1;
+    private int mPage = 1;
     private TweetRecycleViewAdapter mAdapter;
+    private String access_token;
+
+    private boolean isFirstHidden = true;
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            access_token = mActivity.access_token;
+            if (isFirstHidden && !TextUtils.isEmpty(access_token)) {
+                isFirstHidden = false;
+                initRequestData(mPage);
+            }
+
+        }
+    }
 
     @Override
     protected int getLayout() {
@@ -51,6 +66,7 @@ public class TweetFragment
 
     @Override
     protected void initData() {
+        access_token = mActivity.access_token;
         initTitle();
         initAdatper();
         initRequestData(mPage);
@@ -70,20 +86,20 @@ public class TweetFragment
             showDialog();
         }
         //获取动弹列表
-        NewsService        service      = HttpUtils.requestNetData(NewsService.BASE_URL, NewsService.class);
-        Call<TweetListBean> tweetListCall = service.getTweetList(mPage, 20);
+        NewsService service = HttpUtils.requestNetData(NewsService.BASE_URL, NewsService.class);
+        Call<TweetListBean> tweetListCall = service.getTweetList(mPage, 20, access_token);
         tweetListCall.enqueue(new Callback<TweetListBean>() {
             @Override
             public void onResponse(Call<TweetListBean> call, Response<TweetListBean> response) {
                 List<TweetListBean.TweetlistBean> tweetList = response.body()
-                                                                      .getTweetlist();
-                if (isLoadMore){
+                        .getTweetlist();
+                if (isLoadMore) {
                     mAdapter.addMoreList(tweetList);
                     //加载更多完成
                     mXView.loadMoreComplete();
                     //重置标识
                     isLoadMore = false;
-                }else {
+                } else {
                     mAdapter.addList(tweetList);
                     //刷新完成
                     mXView.refreshComplete();
@@ -91,7 +107,7 @@ public class TweetFragment
                 if (isFirstRequest) {
                     //隐藏加载对话框
                     hideDialog();
-                    isFirstRequest=false;
+                    isFirstRequest = false;
                 }
             }
 
@@ -145,7 +161,7 @@ public class TweetFragment
     //---------xlRecyclerView点击回调-------------------
     @Override
     public void onItemClick(View view, int position) {
-        
+
     }
 
     @Override

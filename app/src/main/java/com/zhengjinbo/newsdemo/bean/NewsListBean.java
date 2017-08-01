@@ -58,17 +58,7 @@ public class NewsListBean
     }
 
     public static class NewslistBean {
-        /**
-         * author : 淡漠悠然
-         * id : 87243
-         * title : Jackson 2.9.0 发布，高性能 JSON 处理
-         * type : 4
-         * authorid : 2305107
-         * pubDate : 2017-07-30 16:50:44
-         * commentCount : 1
-         * object : 1492180
-         * url : https://git.oschina.net/desktop/remoter
-         */
+
 
         private String author;
         private int    id;

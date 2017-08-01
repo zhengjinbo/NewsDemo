@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -49,7 +50,7 @@ public class MeFragment extends BaseFragment {
     ImageView mIvAvatar;
     @BindView(R.id.tv_message)
     TextView mTvMessage;
-    String access_token;
+    String access_token="";
     PersonInfoBean personInfoBean;
 
 
@@ -59,6 +60,10 @@ public class MeFragment extends BaseFragment {
         switch (requestCode) {
             case REQUEST_CODE:
                 access_token = data.getStringExtra("access_token");
+
+                Message message =new Message();
+                message.obj = access_token;
+                myHandler.sendMessageAtTime(message,100);
                 if (!TextUtils.isEmpty(access_token)) {
                     mTvMessage.setText("点击查看个人信息");
                     isLock = false;
@@ -88,6 +93,7 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        isLock = true;
         mToolbar.setVisibility(View.GONE);
 
     }

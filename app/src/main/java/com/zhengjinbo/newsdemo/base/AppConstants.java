@@ -17,4 +17,5 @@ public class AppConstants {
     public static final String NEWS_DETAIL_ID_KEY   = "NewsDetailId";
     public static final String NEW_DETAIL_TITLE     = "新闻详情";
     public static final String NEWS_DETAIL_COMMENT_KEY = "NewsDetailComment";
+    public static final String ACCESS_TOKEN = "access_token";
 }
