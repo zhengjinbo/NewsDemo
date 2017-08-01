@@ -18,11 +18,13 @@ import butterknife.Unbinder;
  * Created by zhengjinbo.
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment
+        extends Fragment
+{
 
-    protected Context mContext;
-    private Unbinder mBind;
+    private Unbinder       mBind;
     private ProgressDialog mProgressDialog;
+    protected Context mContext;
 
     @Override
     public void onAttach(Activity activity) {
@@ -34,7 +36,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState)
+    {
         View view = inflater.inflate(getLayout(), container, false);
         mBind = ButterKnife.bind(this, view);
         initDialog();
@@ -55,7 +58,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 抽象方法，初始化布局
-     *
      * @return
      */
     protected abstract int getLayout();
@@ -73,8 +75,8 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 显示数据加载对话框
      */
-    protected void showDialog() {
-        if (mProgressDialog != null && !mProgressDialog.isShowing()) {
+    protected void showDialog(){
+        if (mProgressDialog!= null && !mProgressDialog.isShowing()){
             mProgressDialog.show();
         }
     }
@@ -82,9 +84,9 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 隐藏数据加载对话框
      */
-    protected void hideDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
+    protected void hideDialog(){
+        if (mProgressDialog!= null && mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
         }
     }
 
@@ -98,10 +100,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mProgressDialog != null) {
+        if (mProgressDialog !=null) {
             mProgressDialog = null;
         }
     }
-
-
 }

@@ -8,8 +8,12 @@ import android.widget.FrameLayout;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.zhengjinbo.newsdemo.R;
+import com.zhengjinbo.newsdemo.base.AppConstants;
 import com.zhengjinbo.newsdemo.base.BaseActivity;
 import com.zhengjinbo.newsdemo.base.FragmentCommon;
+import com.zhengjinbo.newsdemo.fragment.MeFragment;
+import com.zhengjinbo.newsdemo.fragment.NewsFragment;
+import com.zhengjinbo.newsdemo.fragment.TweetFragment;
 
 import java.util.ArrayList;
 
@@ -25,7 +29,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @BindView(R.id.bottom_navigation_bar)
     public BottomNavigationBar mBottomNavigationBar;
     private ArrayList<Fragment> mFragmentList;
-    private FragmentTransaction mTransaction;
 
     @Override
     protected int getLayout() {
@@ -50,12 +53,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private void initBottomNaviBar() {
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
-        mBottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.home_on,
-                "首页").setActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.mipmap.news_on,
-                        "新闻").setActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.mipmap.grade_on,
-                        "我的").setActiveColorResource(R.color.colorPrimary))
+        mBottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.ic_nav_news_actived,
+                                                              AppConstants.TAB_NEWS).setActiveColorResource(R.color.colorPrimary))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_nav_tweet_actived,
+                        AppConstants.TAB_TWEET).setActiveColorResource(R.color.colorPrimary))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_nav_my_pressed,
+                        AppConstants.TAB_ME).setActiveColorResource(R.color.colorPrimary))
                 .setFirstSelectedPosition(0)
                 .initialise();
     }
@@ -65,9 +68,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      */
     private void initFragmentList() {
         mFragmentList = new ArrayList<Fragment>();
-        mFragmentList.add(FragmentCommon.newInstance("首页"));
-        mFragmentList.add(FragmentCommon.newInstance("新闻"));
-        mFragmentList.add(FragmentCommon.newInstance("我的"));
+        NewsFragment  newsFragment = (NewsFragment) FragmentCommon.newInstance(AppConstants.TAB_NEWS);
+        TweetFragment tweetFragment = (TweetFragment) FragmentCommon.newInstance(AppConstants.TAB_TWEET);
+
+        MeFragment meFragment = (MeFragment) FragmentCommon.newInstance(AppConstants.TAB_ME);
+        mFragmentList.add(newsFragment);
+        mFragmentList.add(tweetFragment);
+        mFragmentList.add(meFragment);
         setDefaultFragment();
     }
 
@@ -83,8 +90,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabSelected(int position) {
-//        Toast.makeText(this, "position:" + position, Toast.LENGTH_SHORT)
-//                .show();
         if (mFragmentList != null) {
             if (position < mFragmentList.size()) {
                 FragmentManager fm = getSupportFragmentManager();
@@ -96,7 +101,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                     transaction.add(R.id.fl_content, fragment);
                 }
                 transaction.commitAllowingStateLoss();
-                //            invalidateToolbarExists();
             }
             hideUnselected(position);
         }
@@ -123,8 +127,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabUnselected(int position) {
-//        Toast.makeText(this, "onTabUnselected=position:" + position, Toast.LENGTH_SHORT)
-//             .show();
         if (mFragmentList != null) {
             if (position < mFragmentList.size()) {
                 FragmentManager fm = getSupportFragmentManager();

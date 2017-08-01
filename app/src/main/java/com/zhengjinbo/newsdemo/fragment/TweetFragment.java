@@ -1,22 +1,23 @@
 package com.zhengjinbo.newsdemo.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.zhengjinbo.newsdemo.adapter.NewsRecycleViewAdapter;
+import com.zhengjinbo.newsdemo.adapter.TweetRecycleViewAdapter;
 import com.zhengjinbo.newsdemo.R;
-import com.zhengjinbo.newsdemo.activity.NewsDetailActivity;
 import com.zhengjinbo.newsdemo.base.AppConstants;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
-import com.zhengjinbo.newsdemo.bean.NewsListBean;
+import com.zhengjinbo.newsdemo.bean.TweetListBean;
 import com.zhengjinbo.newsdemo.http.HttpUtils;
 import com.zhengjinbo.newsdemo.http.NewsService;
 import com.zhengjinbo.newsdemo.utils.ToastUtils;
+
 import java.util.List;
+
 import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,9 +26,9 @@ import retrofit2.Response;
 /**
  * Created by zhengjinbo.
  */
-public class NewsFragment
+public class TweetFragment
         extends BaseFragment
-        implements NewsRecycleViewAdapter.OnItemClickLitener
+        implements TweetRecycleViewAdapter.OnItemClickLitener
 {
     @BindView(R.id.tvTitle)
     TextView      mTvTitle;
@@ -41,21 +42,26 @@ public class NewsFragment
     private boolean isLoadMore = false;
     //默认加载的页码
     private int mPage=1;
-    private NewsRecycleViewAdapter mAdapter;
+    private TweetRecycleViewAdapter mAdapter;
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_news;
+        return R.layout.fragment_tweet;
     }
 
     @Override
     protected void initData() {
-        //初始化标题
         initTitle();
-        //初始化Adapter
-        initXViewAdapter();
-        //请求网络数据
+        initAdatper();
         initRequestData(mPage);
+    }
+
+    private void initAdatper() {
+        mAdapter = new TweetRecycleViewAdapter(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mXView.setLayoutManager(layoutManager);
+        mXView.setAdapter(mAdapter);
     }
 
     private void initRequestData(int page) {
@@ -63,23 +69,22 @@ public class NewsFragment
         if (isFirstRequest) {
             showDialog();
         }
-
-        //获取新闻分类
-        NewsService                          service      = HttpUtils.requestNetData(NewsService.BASE_URL, NewsService.class);
-        Call<NewsListBean> newsListCall = service.getNewsList(mPage, 20);
-        newsListCall.enqueue(new Callback<NewsListBean>() {
+        //获取动弹列表
+        NewsService        service      = HttpUtils.requestNetData(NewsService.BASE_URL, NewsService.class);
+        Call<TweetListBean> tweetListCall = service.getTweetList(mPage, 20);
+        tweetListCall.enqueue(new Callback<TweetListBean>() {
             @Override
-            public void onResponse(Call<NewsListBean> call, Response<NewsListBean> response) {
-                List<NewsListBean.NewslistBean> newsList = response.body()
-                                                                   .getNewslist();
+            public void onResponse(Call<TweetListBean> call, Response<TweetListBean> response) {
+                List<TweetListBean.TweetlistBean> tweetList = response.body()
+                                                                      .getTweetlist();
                 if (isLoadMore){
-                    mAdapter.addMoreList(newsList);
+                    mAdapter.addMoreList(tweetList);
                     //加载更多完成
                     mXView.loadMoreComplete();
                     //重置标识
                     isLoadMore = false;
                 }else {
-                    mAdapter.addList(newsList);
+                    mAdapter.addList(tweetList);
                     //刷新完成
                     mXView.refreshComplete();
                 }
@@ -91,8 +96,8 @@ public class NewsFragment
             }
 
             @Override
-            public void onFailure(Call<NewsListBean> call, Throwable t) {
-                ToastUtils.showShortToast(getActivity(),t.getMessage());
+            public void onFailure(Call<TweetListBean> call, Throwable t) {
+                ToastUtils.showShortToast(getActivity(), t.getMessage());
                 if (isFirstRequest) {
                     hideDialog();
                 }
@@ -101,18 +106,15 @@ public class NewsFragment
 
     }
 
-    private void initXViewAdapter() {
-        mAdapter = new NewsRecycleViewAdapter(getActivity());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mXView.setLayoutManager(layoutManager);
-        mXView.setAdapter(mAdapter);
-    }
 
-    private void initTitle() {Bundle arguments = getArguments();
+    /**
+     * 初始化标题
+     */
+    private void initTitle() {
+        Bundle arguments = getArguments();
         if (arguments != null) {
-            String news = arguments.getString(AppConstants.KEY_NEWS);
-            mTvTitle.setText(news);
+            String title = arguments.getString(AppConstants.KEY_TWEET);
+            mTvTitle.setText(title);
         }
     }
 
@@ -135,24 +137,21 @@ public class NewsFragment
             }
         });
 
+
         //mXView的条目点击事件
         mAdapter.setOnItemClickLitener(this);
-
     }
-    //----------------recyclerView条目点击事件回调 start---------------
+
+    //---------xlRecyclerView点击回调-------------------
     @Override
     public void onItemClick(View view, int position) {
-        List<NewsListBean.NewslistBean> list = mAdapter.getList();
-        NewsListBean.NewslistBean       bean = list.get(position);
-        Intent intent = new Intent(getActivity(),NewsDetailActivity.class);
-        intent.putExtra(AppConstants.NEWS_DETAIL_ID_KEY, bean.getId());
-        intent.putExtra(AppConstants.NEWS_DETAIL_COMMENT_KEY,bean.getCommentCount());
-        startActivity(intent);
+        
     }
 
     @Override
     public void onItemLongClick(View view, int position) {
 
     }
-    //----------------recyclerView条目点击事件回调 end---------------
+
+    //---------xlRecyclerView点击回调-------------------
 }

@@ -20,8 +20,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:src="@mipmap/avatar"
-
-
             />
 
         <TextView
@@ -63,9 +61,7 @@
             android:text="我的收藏"
             />
 
-        <ImageView
-            style="@style/img_pointer"
-            />
+
 
     </RelativeLayout>
 
@@ -93,9 +89,7 @@
 
             />
 
-        <ImageView
-            style="@style/img_pointer"
-            />
+
 
     </RelativeLayout>
 

@@ -10,14 +10,17 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.base.BaseActivity;
 import com.zhengjinbo.newsdemo.bean.TokenBean;
 import com.zhengjinbo.newsdemo.http.HttpUtils;
 import com.zhengjinbo.newsdemo.http.NewsService;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +31,7 @@ import retrofit2.Response;
  */
 
 public class LoginActivity extends BaseActivity {
-    private  static final int RESULT_CODE = 10086;
+    private static final int RESULT_CODE = 10086;
     private static final String CLIENT_ID = "BtZoBtnOjnUc3tPlkwXs";
     private static final String CLIENT_SECRET = "lMfgxMRZUqGItiEmsgTEddWgNTHqWk4R";
     private static final String REDIRECT_URL = "http://www.travelease.com.cn";
@@ -44,8 +47,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.webView)
     WebView webView;
 
-    String access_token ="";
-
+    String access_token = "";
 
 
     @Override
@@ -105,16 +107,19 @@ public class LoginActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (webView.canGoBack()) {
-                webView.goBack();   //goBack()表示返回webView的上一页
-            } else {
-                Intent intent =  new Intent();
-                intent.putExtra("access_token",access_token);
-                setResult(RESULT_CODE,intent);
-
-                finish();
-            }
-
+            //            if (webView.canGoBack()) {
+            //                webView.goBack();   //goBack()表示返回webView的上一页
+            //            } else {
+            //                Intent intent =  new Intent();
+            //                intent.putExtra("access_token",access_token);
+            //                setResult(RESULT_CODE,intent);
+            //
+            //                finish();
+            //            }
+            Intent intent = new Intent();
+            intent.putExtra("access_token", access_token);
+            setResult(RESULT_CODE, intent);
+            finish();
             return true;
         }
         return false;
@@ -125,7 +130,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-            showDialog();
+            //     showDialog();
             Log.e("onPageStarted-url", url + "///");
 
             String callback_url = REDIRECT_URL + "/?";
@@ -152,7 +157,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            hideDialog();
+            //         hideDialog();
         }
 
 

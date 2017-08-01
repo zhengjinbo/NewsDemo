@@ -24,9 +24,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayout());
         mBind = ButterKnife.bind(this);
-        initData();
-        initListener();
         initDialog();
+        initData();
+
+        initListener();
 
     }
 
@@ -46,11 +47,12 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 抽象方法，初始化监听事件
      */
     protected abstract void initListener();
+
     /**
      * 初始化数据加载dialog
      */
     private void initDialog() {
-        mProgressDialog = new ProgressDialog(BaseActivity.this);
+        mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("数据加载中...");
         mProgressDialog.setCanceledOnTouchOutside(false);
     }
@@ -58,8 +60,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 显示数据加载对话框
      */
-    protected void showDialog() {
-        if (mProgressDialog != null && !mProgressDialog.isShowing()) {
+    protected void showDialog(){
+        if (mProgressDialog!= null && !mProgressDialog.isShowing()){
             mProgressDialog.show();
         }
     }
@@ -67,9 +69,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 隐藏数据加载对话框
      */
-    protected void hideDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
+    protected void hideDialog(){
+        if (mProgressDialog!= null && mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
         }
     }
 
@@ -78,20 +80,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mBind.unbind();
-        if (mProgressDialog != null) {
+        if (mProgressDialog !=null) {
             mProgressDialog = null;
         }
     }
-
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if( keyCode == KeyEvent.KEYCODE_BACK){
-//            onBack();
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    protected void onBack() {
-//    }
 }

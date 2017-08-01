@@ -13,17 +13,18 @@
         android:supportsRtl="true"
         android:name=".base.BaseApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.NewsDetailActivity"/>
         <activity android:name=".activity.LoginActivity"/>
-        <activity android:name=".activity.RegisterActivity"/>
-        <activity android:name=".activity.PersonInfoActivity"/>
+        <!--新闻详情页面-->
+        <activity android:name=".activity.NewsDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
