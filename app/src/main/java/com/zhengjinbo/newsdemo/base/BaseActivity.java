@@ -82,4 +82,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             mProgressDialog = null;
         }
     }
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if( keyCode == KeyEvent.KEYCODE_BACK){
+//            onBack();
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    protected void onBack() {
+//    }
 }

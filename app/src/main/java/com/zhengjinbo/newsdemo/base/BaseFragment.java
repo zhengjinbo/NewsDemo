@@ -103,4 +103,6 @@ public abstract class BaseFragment
             mProgressDialog = null;
         }
     }
+
+
 }
