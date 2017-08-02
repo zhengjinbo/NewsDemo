@@ -5,6 +5,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -160,4 +161,15 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     public void onTabReselected(int position) {
 
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            System.exit(0);
+            return true;
+        }
+        return false;
+    }
+
+
 }

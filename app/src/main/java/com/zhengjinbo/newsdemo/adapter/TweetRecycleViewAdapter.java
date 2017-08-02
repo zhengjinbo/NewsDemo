@@ -24,12 +24,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class TweetRecycleViewAdapter
-        extends RecyclerView.Adapter<TweetRecycleViewAdapter.TweetViewHolder>
-{
-    private       Context        mContext;
+        extends RecyclerView.Adapter<TweetRecycleViewAdapter.TweetViewHolder> {
     private final LayoutInflater mInflater;
+    private Context mContext;
     private List<TweetListBean.TweetlistBean> mList = new ArrayList<TweetListBean.TweetlistBean>();
     private OnItemClickLitener mOnItemClickLitener;
+
+    public TweetRecycleViewAdapter(Context context) {
+        mContext = context;
+        mInflater = LayoutInflater.from(mContext);
+    }
 
     /**
      * 获取数据集合
@@ -38,28 +42,13 @@ public class TweetRecycleViewAdapter
         return mList;
     }
 
-    public interface OnItemClickLitener
-    {
-        void onItemClick(View view, int position);
-        void onItemLongClick(View view, int position);
-    }
-
-    public void setOnItemClickLitener(OnItemClickLitener itemClickLitener){
+    public void setOnItemClickLitener(OnItemClickLitener itemClickLitener) {
         this.mOnItemClickLitener = itemClickLitener;
     }
 
-    public TweetRecycleViewAdapter(Context context) {
-        mContext = context;
-        mInflater = LayoutInflater.from(mContext);
-    }
-
-
-
     @Override
     public TweetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        TweetViewHolder tweetViewHolder = new TweetViewHolder(mInflater.inflate(getItemLayoutId(),
-                                                                               parent,
-                                                                               false));
+        TweetViewHolder tweetViewHolder = new TweetViewHolder(mInflater.inflate(getItemLayoutId(), parent, false));
         return tweetViewHolder;
     }
 
@@ -70,22 +59,24 @@ public class TweetRecycleViewAdapter
         holder.mTvContent.setText(Html.fromHtml(tweetlistBean.getBody()));
         holder.mTvPubDate.setText(tweetlistBean.getPubDate());
         Picasso.with(mContext).load(tweetlistBean.getPortrait()).into(holder.mCircleImg);
+
+
         int commentCount = tweetlistBean.getCommentCount();
-        if (commentCount==0){
+        if (commentCount == 0) {
             holder.mTvComment.setText("评论");
-        }else {
+        } else {
             holder.mTvComment.setText(commentCount + "");
         }
 
 
         //设置点击事件回调
-        if (mOnItemClickLitener != null){
+        if (mOnItemClickLitener != null) {
             //点击
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int layoutPosition = holder.getLayoutPosition();
-                    mOnItemClickLitener.onItemClick(holder.itemView,layoutPosition);
+                    mOnItemClickLitener.onItemClick(holder.itemView, layoutPosition);
                 }
             });
             //长按点击事件
@@ -93,7 +84,7 @@ public class TweetRecycleViewAdapter
                 @Override
                 public boolean onLongClick(View v) {
                     int layoutPosition = holder.getLayoutPosition();
-                    mOnItemClickLitener.onItemLongClick(holder.itemView,layoutPosition);
+                    mOnItemClickLitener.onItemLongClick(holder.itemView, layoutPosition);
                     return false;
                 }
             });
@@ -112,6 +103,7 @@ public class TweetRecycleViewAdapter
 
     /**
      * 添加全部集合进去
+     *
      * @param newslist
      */
     public void addList(List<TweetListBean.TweetlistBean> newslist) {
@@ -122,6 +114,7 @@ public class TweetRecycleViewAdapter
 
     /**
      * 添加加载更多的集合
+     *
      * @param newslist
      */
     public void addMoreList(List<TweetListBean.TweetlistBean> newslist) {
@@ -129,17 +122,19 @@ public class TweetRecycleViewAdapter
         notifyDataSetChanged();
     }
 
-    class TweetViewHolder
-            extends RecyclerView.ViewHolder
-    {
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
 
+        void onItemLongClick(View view, int position);
+    }
 
-        private  TextView mTvName;
-        private  TextView mTvContent;
-        private  TextView mTvPubDate;
-        private  TextView mTvComment;
+    class TweetViewHolder extends RecyclerView.ViewHolder {
         private final GridView mGvImg;
         private final CircleImageView mCircleImg;
+        private TextView mTvName;
+        private TextView mTvContent;
+        private TextView mTvPubDate;
+        private TextView mTvComment;
 
         public TweetViewHolder(View view) {
             super(view);

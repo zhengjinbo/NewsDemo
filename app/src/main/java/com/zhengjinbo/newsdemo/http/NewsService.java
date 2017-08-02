@@ -3,17 +3,13 @@ package com.zhengjinbo.newsdemo.http;
 import com.zhengjinbo.newsdemo.bean.NewsDetailBean;
 import com.zhengjinbo.newsdemo.bean.NewsListBean;
 import com.zhengjinbo.newsdemo.bean.PersonInfoBean;
-import com.zhengjinbo.newsdemo.bean.RegisterBean;
 import com.zhengjinbo.newsdemo.bean.TokenBean;
 import com.zhengjinbo.newsdemo.bean.TweetListBean;
-import com.zhengjinbo.newsdemo.vo.RegisterVO;
 
 import java.util.Map;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -30,7 +26,7 @@ public interface NewsService {
      * 新闻列表
      */
     @GET("news_list")
-    Call<NewsListBean> getNewsList(@Query("page") int page, @Query("pageSize") int pageSize,@Query("access_token")String access_token);
+    Call<NewsListBean> getNewsList(@Query("page") int page, @Query("pageSize") int pageSize, @Query("access_token") String access_token);
 
 
     /**
@@ -44,12 +40,8 @@ public interface NewsService {
      * 动弹列表
      */
     @GET("tweet_list")
-    Call<TweetListBean> getTweetList(@Query("page") int page, @Query("pageSize") int pageSize,@Query("access_token")String access_token);
+    Call<TweetListBean> getTweetList(@Query("page") int page, @Query("pageSize") int pageSize, @Query("access_token") String access_token);
 
-
-    //注册
-    @POST("news/register")
-    Call<RegisterBean> send(@Body RegisterVO registerVO);
 
     //登陆授权
     @GET("news/login")

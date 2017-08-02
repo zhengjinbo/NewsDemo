@@ -10,11 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.activity.LoginActivity;
 import com.zhengjinbo.newsdemo.activity.PersonInfoActivity;
@@ -28,11 +28,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**我的
+/**
+ * 我的
  * Created by zhengjinbo
  */
 public class MeFragment extends BaseFragment {
@@ -47,42 +49,47 @@ public class MeFragment extends BaseFragment {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.iv_avatar)
-    ImageView mIvAvatar;
+    CircleImageView mIvAvatar;
     @BindView(R.id.tv_message)
     TextView mTvMessage;
-    String access_token="";
+    String access_token = "";
     PersonInfoBean personInfoBean;
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQUEST_CODE:
-                access_token = data.getStringExtra("access_token");
+        Log.e("requestCode",requestCode+"////");
+        Log.e("resultCode",resultCode+"////");
 
-                Message message =new Message();
-                message.obj = access_token;
-                myHandler.sendMessageAtTime(message,100);
-                if (!TextUtils.isEmpty(access_token)) {
-                    mTvMessage.setText("点击查看个人信息");
-                    isLock = false;
-                    //获取个人信息
-                    requestPersonInfo();
 
-                }
-                break;
-            case CHOOSE_PICTURE:
-                startPhotoZoom(data.getData());
-                break;
+            switch (requestCode) {
+                case REQUEST_CODE:
+                    access_token = data.getStringExtra("access_token");
+                    Log.e("REQUEST_CODE", access_token + "///");
+                    Message message = new Message();
+                    message.obj = access_token;
+                    myHandler.sendMessageAtTime(message, 100);
+                    if (!TextUtils.isEmpty(access_token)) {
+                        mTvMessage.setText("点击查看个人信息");
+                        isLock = false;
+                        //获取个人信息
+                        requestPersonInfo();
 
-            case CROP_SMALL_PICTURE:
-                if (data != null) {
-                    setImageToView(data);
-                }
-                break;
+                    }
+                    break;
+                case CHOOSE_PICTURE:
+                    if (data != null) {
+                        startPhotoZoom(data.getData());
+                   }
+                    break;
 
-        }
+                case CROP_SMALL_PICTURE:
+                    if (data != null) {
+                        setImageToView(data);
+                    }
+                    break;
+            }
 
     }
 
@@ -110,8 +117,7 @@ public class MeFragment extends BaseFragment {
                 } else {
                     //修改头像
 
-                    Intent openAlbumIntent = new Intent(
-                            Intent.ACTION_GET_CONTENT);
+                    Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
                     openAlbumIntent.setType("image/*");
                     startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
                 }
@@ -152,8 +158,7 @@ public class MeFragment extends BaseFragment {
                 hideDialog();
                 personInfoBean = response.body();
                 Log.e("获取个人信息接口返回", new Gson().toJson(personInfoBean));
-
-
+                Picasso.with(mContext).load(personInfoBean.getAvatar()).into(mIvAvatar);
             }
 
             @Override
