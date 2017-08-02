@@ -1,10 +1,15 @@
 package com.zhengjinbo.newsdemo.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
@@ -28,6 +33,7 @@ import butterknife.BindView;
  */
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
 
+    private static final int REQUEST_CODE = 100;
     @BindView(R.id.bottom_navigation_bar)
     public BottomNavigationBar mBottomNavigationBar;
 
@@ -55,13 +61,38 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     protected void initData() {
         initBottomNaviBar();
         initFragmentList();
-    }
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //进入到这里代表没有权限.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+        }
+
+    }
 
     @Override
     protected void initListener() {
         mBottomNavigationBar.setTabSelectedListener(this);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    //用户同意授权
+
+                } else {
+                    //用户拒绝授权
+                }
+                break;
+//            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+
 
     /**
      * 初始化底部选项卡

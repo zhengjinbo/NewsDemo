@@ -3,7 +3,6 @@ package com.zhengjinbo.newsdemo.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -11,7 +10,6 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.base.BaseActivity;
 import com.zhengjinbo.newsdemo.bean.TokenBean;
@@ -92,7 +90,6 @@ public class LoginActivity extends BaseActivity {
                 TokenBean tokenBean = response.body();
                 access_token = tokenBean.getAccess_token();
 
-                Log.e("zjb=登陆接口返回onResponse", "///" + new Gson().toJson(tokenBean));
             }
 
             @Override
@@ -131,7 +128,6 @@ public class LoginActivity extends BaseActivity {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
             //     showDialog();
-            Log.e("onPageStarted-url", url + "///");
 
             String callback_url = REDIRECT_URL + "/?";
             if (url.startsWith(callback_url)) { //匹配callback_url

@@ -12,26 +12,31 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.activity.LoginActivity;
 import com.zhengjinbo.newsdemo.activity.PersonInfoActivity;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
 import com.zhengjinbo.newsdemo.bean.PersonInfoBean;
+import com.zhengjinbo.newsdemo.bean.PortraitUpdateBean;
 import com.zhengjinbo.newsdemo.http.HttpUtils;
 import com.zhengjinbo.newsdemo.http.NewsService;
 import com.zhengjinbo.newsdemo.utils.ImageUtil;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.zhengjinbo.newsdemo.http.HttpUtils.requestNetData;
 
 /**
  * 我的
@@ -59,37 +64,33 @@ public class MeFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("requestCode",requestCode+"////");
-        Log.e("resultCode",resultCode+"////");
 
+        switch (requestCode) {
+            case REQUEST_CODE:
+                access_token = data.getStringExtra("access_token");
+                Message message = new Message();
+                message.obj = access_token;
+                myHandler.sendMessageAtTime(message, 100);
+                if (!TextUtils.isEmpty(access_token)) {
+                    mTvMessage.setText("点击查看个人信息");
+                    isLock = false;
+                    //获取个人信息
+                    requestPersonInfo();
 
-            switch (requestCode) {
-                case REQUEST_CODE:
-                    access_token = data.getStringExtra("access_token");
-                    Log.e("REQUEST_CODE", access_token + "///");
-                    Message message = new Message();
-                    message.obj = access_token;
-                    myHandler.sendMessageAtTime(message, 100);
-                    if (!TextUtils.isEmpty(access_token)) {
-                        mTvMessage.setText("点击查看个人信息");
-                        isLock = false;
-                        //获取个人信息
-                        requestPersonInfo();
+                }
+                break;
+            case CHOOSE_PICTURE:
+                if (data != null) {
+                    startPhotoZoom(data.getData());
+                }
+                break;
 
-                    }
-                    break;
-                case CHOOSE_PICTURE:
-                    if (data != null) {
-                        startPhotoZoom(data.getData());
-                   }
-                    break;
-
-                case CROP_SMALL_PICTURE:
-                    if (data != null) {
-                        setImageToView(data);
-                    }
-                    break;
-            }
+            case CROP_SMALL_PICTURE:
+                if (data != null) {
+                    setImageToView(data);
+                }
+                break;
+        }
 
     }
 
@@ -150,14 +151,13 @@ public class MeFragment extends BaseFragment {
         map.put("access_token", access_token);
         map.put("dataType", "json");
 
-        NewsService newsService = HttpUtils.requestNetData(NewsService.URL_PERSON_INFO, NewsService.class);
+        NewsService newsService = requestNetData(NewsService.URL_PERSON_INFO, NewsService.class);
         Call<PersonInfoBean> call = newsService.getPersonInfo(map);
         call.enqueue(new Callback<PersonInfoBean>() {
             @Override
             public void onResponse(Call<PersonInfoBean> call, Response<PersonInfoBean> response) {
                 hideDialog();
                 personInfoBean = response.body();
-                Log.e("获取个人信息接口返回", new Gson().toJson(personInfoBean));
                 Picasso.with(mContext).load(personInfoBean.getAvatar()).into(mIvAvatar);
             }
 
@@ -198,14 +198,32 @@ public class MeFragment extends BaseFragment {
 
     private void uploadPic(Bitmap bitmap) {
 
-
         String imagePath = ImageUtil.savePhoto(bitmap, Environment
                 .getExternalStorageDirectory().getAbsolutePath(), String
                 .valueOf(System.currentTimeMillis()));
-        Log.e("imagePath", imagePath + "");
         if (imagePath != null) {
-            // ...
+            // ...上传头像
+            NewsService newsService = HttpUtils.requestNetData(NewsService.PORTTAIT_UPDATE_URL, NewsService.class);
+            File file = new File(imagePath);
+            RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part partBody = MultipartBody.Part.createFormData("portrait", file.getName(), body);
+            Call<PortraitUpdateBean> call = newsService.updatePortrait(access_token, partBody);
+            call.enqueue(new Callback<PortraitUpdateBean>() {
+                @Override
+                public void onResponse(Call<PortraitUpdateBean> call, Response<PortraitUpdateBean> response) {
+                    PortraitUpdateBean portraitUpdateBean = response.body();
+                    Toast.makeText(mActivity, portraitUpdateBean.getError(), Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(Call<PortraitUpdateBean> call, Throwable t) {
+                    Toast.makeText(mActivity, t.getMessage(), Toast.LENGTH_LONG).show();
+
+                }
+            });
+
         }
+
     }
 
 }
