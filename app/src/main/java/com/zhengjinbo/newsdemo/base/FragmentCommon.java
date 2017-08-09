@@ -18,25 +18,25 @@ public class FragmentCommon {
     public static Fragment newInstance(String text) {
         switch (text) {
             case AppConstants.TAB_NEWS:
-            fragment = new NewsFragment();
-            Bundle newsData = new Bundle();
-            newsData.putString(AppConstants.KEY_NEWS,text);
-            fragment.setArguments(newsData);
-            break;
+                fragment = new NewsFragment();
+                Bundle newsData = new Bundle();
+                newsData.putString(AppConstants.KEY_NEWS, text);
+                fragment.setArguments(newsData);
+                break;
             case AppConstants.TAB_TWEET:
                 fragment = new TweetFragment();
                 Bundle homeData = new Bundle();
-                homeData.putString(AppConstants.KEY_TWEET,text);
+                homeData.putString(AppConstants.KEY_TWEET, text);
                 fragment.setArguments(homeData);
                 break;
             case AppConstants.TAB_ME:
                 fragment = new MeFragment();
                 Bundle meData = new Bundle();
-                meData.putString(AppConstants.KEY_ME,text);
+                meData.putString(AppConstants.KEY_ME, text);
                 fragment.setArguments(meData);
                 break;
             default:
-                 break;
+                break;
         }
 
         return fragment;

@@ -5,16 +5,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Message;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.squareup.picasso.Picasso;
 import com.zhengjinbo.newsdemo.R;
-import com.zhengjinbo.newsdemo.activity.LoginActivity;
 import com.zhengjinbo.newsdemo.activity.PersonInfoActivity;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
 import com.zhengjinbo.newsdemo.bean.PersonInfoBean;
@@ -40,7 +38,7 @@ import static com.zhengjinbo.newsdemo.http.HttpUtils.requestNetData;
 
 /**
  * 我的
- * Created by zhengjinbo
+ * Created by zhengjinbo.
  */
 public class MeFragment extends BaseFragment {
     protected static final int CHOOSE_PICTURE = 0;
@@ -66,19 +64,7 @@ public class MeFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case REQUEST_CODE:
-                access_token = data.getStringExtra("access_token");
-                Message message = new Message();
-                message.obj = access_token;
-                myHandler.sendMessageAtTime(message, 100);
-                if (!TextUtils.isEmpty(access_token)) {
-                    mTvMessage.setText("点击查看个人信息");
-                    isLock = false;
-                    //获取个人信息
-                    requestPersonInfo();
 
-                }
-                break;
             case CHOOSE_PICTURE:
                 if (data != null) {
                     startPhotoZoom(data.getData());
@@ -101,8 +87,12 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        access_token = mActivity.access_token;
         isLock = true;
         mToolbar.setVisibility(View.GONE);
+
+        //获取个人信息
+        requestPersonInfo();
 
     }
 
@@ -113,11 +103,10 @@ public class MeFragment extends BaseFragment {
             public void onClick(View v) {
                 if (isLock) {
                     //跳转到用户授权界面
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivityForResult(intent, REQUEST_CODE);
+//                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+//                    startActivityForResult(intent, REQUEST_CODE);
                 } else {
-                    //修改头像
-
+                    //修改头!像
                     Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
                     openAlbumIntent.setType("image/*");
                     startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
@@ -144,7 +133,9 @@ public class MeFragment extends BaseFragment {
 
     }
 
-
+    /**
+     * 获取个人信息
+     */
     private void requestPersonInfo() {
         showDialog();
         Map<String, String> map = new HashMap<String, String>();
@@ -159,6 +150,8 @@ public class MeFragment extends BaseFragment {
                 hideDialog();
                 personInfoBean = response.body();
                 Picasso.with(mContext).load(personInfoBean.getAvatar()).into(mIvAvatar);
+                mTvMessage.setText("点击查看个人信息");
+                isLock = false;
             }
 
             @Override

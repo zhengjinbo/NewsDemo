@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,10 +23,9 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
     protected Context mContext;
+    protected MainActivity mActivity;
     private Unbinder mBind;
     private ProgressDialog mProgressDialog;
-    protected MainActivity mActivity;
-    protected Handler myHandler;
 
     @Override
     public void onAttach(Activity activity) {
@@ -42,8 +40,8 @@ public abstract class BaseFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayout(), container, false);
         mBind = ButterKnife.bind(this, view);
-        mActivity = (MainActivity)getActivity();
-        myHandler =  mActivity.myHandler;
+        mActivity = (MainActivity) getActivity();
+        //    myHandler = mActivity.myHandler;
         initDialog();
         initData();
         initListener();
@@ -62,7 +60,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 抽象方法，初始化布局
-     *
      * @return
      */
     protected abstract int getLayout();

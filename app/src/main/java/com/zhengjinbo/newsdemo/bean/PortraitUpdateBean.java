@@ -6,12 +6,12 @@ import java.io.Serializable;
  * Created by zhengjinbo.
  */
 
-public class PortraitUpdateBean implements Serializable{
+public class PortraitUpdateBean implements Serializable {
 
-//    {
-//        error: "200",
-//                error_description: "操作成功完成"
-//    }
+    //    {
+    //        error: "200",
+    //                error_description: "操作成功完成"
+    //    }
 
 
     private String error;
@@ -32,7 +32,6 @@ public class PortraitUpdateBean implements Serializable{
     public void setError_description(String error_description) {
         this.error_description = error_description;
     }
-
 
 
 }

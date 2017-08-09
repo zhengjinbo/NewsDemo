@@ -33,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 抽象方法，获取布局
+     *
      * @return
      */
     protected abstract int getLayout();
@@ -60,8 +61,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 显示数据加载对话框
      */
-    protected void showDialog(){
-        if (mProgressDialog!= null && !mProgressDialog.isShowing()){
+    protected void showDialog() {
+        if (mProgressDialog != null && !mProgressDialog.isShowing()) {
             mProgressDialog.show();
         }
     }
@@ -69,8 +70,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 隐藏数据加载对话框
      */
-    protected void hideDialog(){
-        if (mProgressDialog!= null && mProgressDialog.isShowing()){
+    protected void hideDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }
@@ -80,7 +81,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mBind.unbind();
-        if (mProgressDialog !=null) {
+        if (mProgressDialog != null) {
             mProgressDialog = null;
         }
     }

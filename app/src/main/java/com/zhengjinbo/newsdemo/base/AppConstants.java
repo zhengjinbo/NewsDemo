@@ -1,7 +1,7 @@
 package com.zhengjinbo.newsdemo.base;
 
 /**
- * Created by zhengjinbo on 17/7/30.
+ * Created by zhengjinbo. on 17/7/30.
  * 存储app的常量值
  */
 

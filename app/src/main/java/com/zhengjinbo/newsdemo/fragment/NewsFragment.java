@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
+/**新闻界面
  * Created by zhengjinbo.
  */
 public class NewsFragment extends BaseFragment implements NewsRecycleViewAdapter.OnItemClickLitener {
@@ -43,24 +42,20 @@ public class NewsFragment extends BaseFragment implements NewsRecycleViewAdapter
     //默认加载的页码
     private int mPage = 1;
     private NewsRecycleViewAdapter mAdapter;
-    private String access_token ="";
     //是否第一次加载数据,默认true
     private boolean isFirstHidden = true;
+    private String access_token = "";
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            access_token = mActivity.access_token;
-            if (isFirstHidden && !TextUtils.isEmpty(access_token)){
-                isFirstHidden = false;
-                initRequestData(mPage);
-            }
-
-        }
-
-
-    }
+//    @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        super.onHiddenChanged(hidden);
+//        if (!hidden) {
+//            if (isFirstHidden && !TextUtils.isEmpty(access_token)) {
+//                isFirstHidden = false;
+//                initRequestData(mPage);
+//            }
+//        }
+//    }
 
     @Override
     protected int getLayout() {
@@ -69,6 +64,8 @@ public class NewsFragment extends BaseFragment implements NewsRecycleViewAdapter
 
     @Override
     protected void initData() {
+
+        access_token = mActivity.access_token;
 
         //初始化标题
         initTitle();
@@ -86,7 +83,7 @@ public class NewsFragment extends BaseFragment implements NewsRecycleViewAdapter
 
         //获取新闻分类
         NewsService service = HttpUtils.requestNetData(NewsService.BASE_URL, NewsService.class);
-        Call<NewsListBean> newsListCall = service.getNewsList(mPage, 20,access_token);
+        Call<NewsListBean> newsListCall = service.getNewsList(mPage, 20, access_token);
         newsListCall.enqueue(new Callback<NewsListBean>() {
             @Override
             public void onResponse(Call<NewsListBean> call, Response<NewsListBean> response) {
@@ -165,11 +162,11 @@ public class NewsFragment extends BaseFragment implements NewsRecycleViewAdapter
     @Override
     public void onItemClick(View view, int position) {
         List<NewsListBean.NewslistBean> list = mAdapter.getList();
-        NewsListBean.NewslistBean bean = list.get(position-1);
+        NewsListBean.NewslistBean bean = list.get(position - 1);
         Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
         intent.putExtra(AppConstants.NEWS_DETAIL_ID_KEY, bean.getId());
         intent.putExtra(AppConstants.NEWS_DETAIL_COMMENT_KEY, bean.getCommentCount());
-        intent.putExtra(AppConstants.ACCESS_TOKEN,access_token);
+        intent.putExtra(AppConstants.ACCESS_TOKEN, access_token);
         startActivity(intent);
     }
 

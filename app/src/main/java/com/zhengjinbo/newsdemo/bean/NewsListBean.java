@@ -19,13 +19,21 @@ public class NewsListBean
     private NoticeBean notice;
     private List<NewslistBean> newslist;
 
-    public NoticeBean getNotice() { return notice;}
+    public NoticeBean getNotice() {
+        return notice;
+    }
 
-    public void setNotice(NoticeBean notice) { this.notice = notice;}
+    public void setNotice(NoticeBean notice) {
+        this.notice = notice;
+    }
 
-    public List<NewslistBean> getNewslist() { return newslist;}
+    public List<NewslistBean> getNewslist() {
+        return newslist;
+    }
 
-    public void setNewslist(List<NewslistBean> newslist) { this.newslist = newslist;}
+    public void setNewslist(List<NewslistBean> newslist) {
+        this.newslist = newslist;
+    }
 
     public static class NoticeBean {
         /**
@@ -40,70 +48,122 @@ public class NewsListBean
         private int msgCount;
         private int fansCount;
 
-        public int getReferCount() { return referCount;}
+        public int getReferCount() {
+            return referCount;
+        }
 
-        public void setReferCount(int referCount) { this.referCount = referCount;}
+        public void setReferCount(int referCount) {
+            this.referCount = referCount;
+        }
 
-        public int getReplyCount() { return replyCount;}
+        public int getReplyCount() {
+            return replyCount;
+        }
 
-        public void setReplyCount(int replyCount) { this.replyCount = replyCount;}
+        public void setReplyCount(int replyCount) {
+            this.replyCount = replyCount;
+        }
 
-        public int getMsgCount() { return msgCount;}
+        public int getMsgCount() {
+            return msgCount;
+        }
 
-        public void setMsgCount(int msgCount) { this.msgCount = msgCount;}
+        public void setMsgCount(int msgCount) {
+            this.msgCount = msgCount;
+        }
 
-        public int getFansCount() { return fansCount;}
+        public int getFansCount() {
+            return fansCount;
+        }
 
-        public void setFansCount(int fansCount) { this.fansCount = fansCount;}
+        public void setFansCount(int fansCount) {
+            this.fansCount = fansCount;
+        }
     }
 
     public static class NewslistBean {
 
 
         private String author;
-        private int    id;
+        private int id;
         private String title;
-        private int    type;
-        private int    authorid;
+        private int type;
+        private int authorid;
         private String pubDate;
-        private int    commentCount;
-        private int    object;
+        private int commentCount;
+        private int object;
         private String url;
 
-        public String getAuthor() { return author;}
+        public String getAuthor() {
+            return author;
+        }
 
-        public void setAuthor(String author) { this.author = author;}
+        public void setAuthor(String author) {
+            this.author = author;
+        }
 
-        public int getId() { return id;}
+        public int getId() {
+            return id;
+        }
 
-        public void setId(int id) { this.id = id;}
+        public void setId(int id) {
+            this.id = id;
+        }
 
-        public String getTitle() { return title;}
+        public String getTitle() {
+            return title;
+        }
 
-        public void setTitle(String title) { this.title = title;}
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
-        public int getType() { return type;}
+        public int getType() {
+            return type;
+        }
 
-        public void setType(int type) { this.type = type;}
+        public void setType(int type) {
+            this.type = type;
+        }
 
-        public int getAuthorid() { return authorid;}
+        public int getAuthorid() {
+            return authorid;
+        }
 
-        public void setAuthorid(int authorid) { this.authorid = authorid;}
+        public void setAuthorid(int authorid) {
+            this.authorid = authorid;
+        }
 
-        public String getPubDate() { return pubDate;}
+        public String getPubDate() {
+            return pubDate;
+        }
 
-        public void setPubDate(String pubDate) { this.pubDate = pubDate;}
+        public void setPubDate(String pubDate) {
+            this.pubDate = pubDate;
+        }
 
-        public int getCommentCount() { return commentCount;}
+        public int getCommentCount() {
+            return commentCount;
+        }
 
-        public void setCommentCount(int commentCount) { this.commentCount = commentCount;}
+        public void setCommentCount(int commentCount) {
+            this.commentCount = commentCount;
+        }
 
-        public int getObject() { return object;}
+        public int getObject() {
+            return object;
+        }
 
-        public void setObject(int object) { this.object = object;}
+        public void setObject(int object) {
+            this.object = object;
+        }
 
-        public String getUrl() { return url;}
+        public String getUrl() {
+            return url;
+        }
 
-        public void setUrl(String url) { this.url = url;}
+        public void setUrl(String url) {
+            this.url = url;
+        }
     }
 }

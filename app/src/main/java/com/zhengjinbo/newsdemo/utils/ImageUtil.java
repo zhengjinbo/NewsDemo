@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.UUID;
 
 /**
- * Created by root1 on 2017/8/1.
+ * Created by zhengjinbo.
  */
 
 public class ImageUtil {
@@ -117,8 +117,8 @@ public class ImageUtil {
             }
             FileOutputStream fileOutputStream = null;
             try {
-            File photoFile = new File(path, photoName + ".png");
-           photoFile.createNewFile();
+                File photoFile = new File(path, photoName + ".png");
+                photoFile.createNewFile();
 
 
                 fileOutputStream = new FileOutputStream(photoFile);
@@ -130,11 +130,11 @@ public class ImageUtil {
                     }
                 }
             } catch (FileNotFoundException e) {
-//                photoFile.delete();
+                //                photoFile.delete();
                 localPath = null;
                 e.printStackTrace();
             } catch (IOException e) {
-//                photoFile.delete();
+                //                photoFile.delete();
                 localPath = null;
                 e.printStackTrace();
             } finally {

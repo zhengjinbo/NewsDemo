@@ -14,7 +14,7 @@ public class BasicViewHolder {
     private View mConvertView;
     private SparseArray<View> mViews;
 
-    private BasicViewHolder(Context context, int layoutId){
+    private BasicViewHolder(Context context, int layoutId) {
         mConvertView = LayoutInflater.from(context).inflate(layoutId, null);
         //为mConvertView设置tag
         mConvertView.setTag(this);
@@ -23,29 +23,29 @@ public class BasicViewHolder {
 
     }
 
-    public static BasicViewHolder newInstance(View convertView, Context context, int layoutId){
-        if (convertView == null){
+    public static BasicViewHolder newInstance(View convertView, Context context, int layoutId) {
+        if (convertView == null) {
             return new BasicViewHolder(context, layoutId);
-        }else{
+        } else {
             return (BasicViewHolder) convertView.getTag();
         }
     }
 
     /**
-     *  暴露一个方法提供mConvertView
+     * 暴露一个方法提供mConvertView
      */
-    public View getConvertView(){
+    public View getConvertView() {
         return mConvertView;
     }
 
     /**
      * 暴露一个方法获取id对应的View
      */
-    public <T extends View> T getItemView(int id){
+    public <T extends View> T getItemView(int id) {
         View view = mViews.get(id);
-        if (view == null){
+        if (view == null) {
             view = mConvertView.findViewById(id);
-            mViews.append(id,view);
+            mViews.append(id, view);
         }
         return (T) view;
     }

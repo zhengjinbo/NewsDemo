@@ -15,7 +15,7 @@ import java.util.List;
 
 
 /**
- * Created by zhengjinbo on 17/7/30.
+ * Created by zhengjinbo. on 17/7/30.
  */
 
 public class NewsRecycleViewAdapter

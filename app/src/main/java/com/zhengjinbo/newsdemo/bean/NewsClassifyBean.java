@@ -19,13 +19,21 @@ public class NewsClassifyBean
     private boolean status;
     private List<TngouBean> tngou;
 
-    public boolean isStatus() { return status;}
+    public boolean isStatus() {
+        return status;
+    }
 
-    public void setStatus(boolean status) { this.status = status;}
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
-    public List<TngouBean> getTngou() { return tngou;}
+    public List<TngouBean> getTngou() {
+        return tngou;
+    }
 
-    public void setTngou(List<TngouBean> tngou) { this.tngou = tngou;}
+    public void setTngou(List<TngouBean> tngou) {
+        this.tngou = tngou;
+    }
 
     public static class TngouBean {
         /**
@@ -38,34 +46,58 @@ public class NewsClassifyBean
          */
 
         private String description;
-        private int    id;
+        private int id;
         private String keywords;
         private String name;
-        private int    seq;
+        private int seq;
         private String title;
 
-        public String getDescription() { return description;}
+        public String getDescription() {
+            return description;
+        }
 
-        public void setDescription(String description) { this.description = description;}
+        public void setDescription(String description) {
+            this.description = description;
+        }
 
-        public int getId() { return id;}
+        public int getId() {
+            return id;
+        }
 
-        public void setId(int id) { this.id = id;}
+        public void setId(int id) {
+            this.id = id;
+        }
 
-        public String getKeywords() { return keywords;}
+        public String getKeywords() {
+            return keywords;
+        }
 
-        public void setKeywords(String keywords) { this.keywords = keywords;}
+        public void setKeywords(String keywords) {
+            this.keywords = keywords;
+        }
 
-        public String getName() { return name;}
+        public String getName() {
+            return name;
+        }
 
-        public void setName(String name) { this.name = name;}
+        public void setName(String name) {
+            this.name = name;
+        }
 
-        public int getSeq() { return seq;}
+        public int getSeq() {
+            return seq;
+        }
 
-        public void setSeq(int seq) { this.seq = seq;}
+        public void setSeq(int seq) {
+            this.seq = seq;
+        }
 
-        public String getTitle() { return title;}
+        public String getTitle() {
+            return title;
+        }
 
-        public void setTitle(String title) { this.title = title;}
+        public void setTitle(String title) {
+            this.title = title;
+        }
     }
 }

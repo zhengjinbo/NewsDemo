@@ -3,7 +3,6 @@ package com.zhengjinbo.newsdemo.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * 动弹界面
  * Created by zhengjinbo.
  */
 public class TweetFragment extends BaseFragment implements TweetRecycleViewAdapter.OnItemClickLitener {
@@ -41,23 +41,21 @@ public class TweetFragment extends BaseFragment implements TweetRecycleViewAdapt
     //默认加载的页码
     private int mPage = 1;
     private TweetRecycleViewAdapter mAdapter;
+    private boolean isFirstHidden = true;
     private String access_token;
 
-    private boolean isFirstHidden = true;
 
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            access_token = mActivity.access_token;
-            if (isFirstHidden && !TextUtils.isEmpty(access_token)) {
-                isFirstHidden = false;
-                initRequestData(mPage);
-            }
-
-        }
-    }
+//    @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        super.onHiddenChanged(hidden);
+//        if (!hidden) {
+//            access_token = mActivity.access_token;
+//            if (isFirstHidden && !TextUtils.isEmpty(access_token)) {
+//                isFirstHidden = false;
+//                initRequestData(mPage);
+//            }
+//        }
+//    }
 
     @Override
     protected int getLayout() {

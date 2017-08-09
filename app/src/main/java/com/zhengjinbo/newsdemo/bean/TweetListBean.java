@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by zhengjinbo on 17/7/31.
+ * Created by zhengjinbo. on 17/7/31.
  */
 
 public class TweetListBean implements Serializable {
@@ -17,13 +17,21 @@ public class TweetListBean implements Serializable {
     private NoticeBean notice;
     private List<TweetlistBean> tweetlist;
 
-    public NoticeBean getNotice() { return notice;}
+    public NoticeBean getNotice() {
+        return notice;
+    }
 
-    public void setNotice(NoticeBean notice) { this.notice = notice;}
+    public void setNotice(NoticeBean notice) {
+        this.notice = notice;
+    }
 
-    public List<TweetlistBean> getTweetlist() { return tweetlist;}
+    public List<TweetlistBean> getTweetlist() {
+        return tweetlist;
+    }
 
-    public void setTweetlist(List<TweetlistBean> tweetlist) { this.tweetlist = tweetlist;}
+    public void setTweetlist(List<TweetlistBean> tweetlist) {
+        this.tweetlist = tweetlist;
+    }
 
     public static class NoticeBean {
         /**
@@ -38,21 +46,37 @@ public class TweetListBean implements Serializable {
         private int msgCount;
         private int fansCount;
 
-        public int getReferCount() { return referCount;}
+        public int getReferCount() {
+            return referCount;
+        }
 
-        public void setReferCount(int referCount) { this.referCount = referCount;}
+        public void setReferCount(int referCount) {
+            this.referCount = referCount;
+        }
 
-        public int getReplyCount() { return replyCount;}
+        public int getReplyCount() {
+            return replyCount;
+        }
 
-        public void setReplyCount(int replyCount) { this.replyCount = replyCount;}
+        public void setReplyCount(int replyCount) {
+            this.replyCount = replyCount;
+        }
 
-        public int getMsgCount() { return msgCount;}
+        public int getMsgCount() {
+            return msgCount;
+        }
 
-        public void setMsgCount(int msgCount) { this.msgCount = msgCount;}
+        public void setMsgCount(int msgCount) {
+            this.msgCount = msgCount;
+        }
 
-        public int getFansCount() { return fansCount;}
+        public int getFansCount() {
+            return fansCount;
+        }
 
-        public void setFansCount(int fansCount) { this.fansCount = fansCount;}
+        public void setFansCount(int fansCount) {
+            this.fansCount = fansCount;
+        }
     }
 
     public static class TweetlistBean {
@@ -62,7 +86,7 @@ public class TweetListBean implements Serializable {
          * portrait : https://static.oschina.net/uploads/user/438/877346_50.jpeg?t=1501390488000
          * authorid : 877346
          * body : .net高并发socket通信库升级了，支持同步连接和接收
-         <a href="https://www.oschina.net/p/Bouyei-NetProviderFactory" target="_blank" rel="nofollow">https://www.oschina.net/p/Bouyei-NetProviderFactory</a>
+         * <a href="https://www.oschina.net/p/Bouyei-NetProviderFactory" target="_blank" rel="nofollow">https://www.oschina.net/p/Bouyei-NetProviderFactory</a>
          * pubDate : 2017-07-31 20:31:42
          * commentCount : 0
          * imgBig : https://static.oschina.net/uploads/space/2017/0731/203151_OQ7m_2720166.jpg
@@ -70,49 +94,85 @@ public class TweetListBean implements Serializable {
          */
 
         private String author;
-        private int    id;
+        private int id;
         private String portrait;
-        private int    authorid;
+        private int authorid;
         private String body;
         private String pubDate;
-        private int    commentCount;
+        private int commentCount;
         private String imgBig;
         private String imgSmall;
 
-        public String getAuthor() { return author;}
+        public String getAuthor() {
+            return author;
+        }
 
-        public void setAuthor(String author) { this.author = author;}
+        public void setAuthor(String author) {
+            this.author = author;
+        }
 
-        public int getId() { return id;}
+        public int getId() {
+            return id;
+        }
 
-        public void setId(int id) { this.id = id;}
+        public void setId(int id) {
+            this.id = id;
+        }
 
-        public String getPortrait() { return portrait;}
+        public String getPortrait() {
+            return portrait;
+        }
 
-        public void setPortrait(String portrait) { this.portrait = portrait;}
+        public void setPortrait(String portrait) {
+            this.portrait = portrait;
+        }
 
-        public int getAuthorid() { return authorid;}
+        public int getAuthorid() {
+            return authorid;
+        }
 
-        public void setAuthorid(int authorid) { this.authorid = authorid;}
+        public void setAuthorid(int authorid) {
+            this.authorid = authorid;
+        }
 
-        public String getBody() { return body;}
+        public String getBody() {
+            return body;
+        }
 
-        public void setBody(String body) { this.body = body;}
+        public void setBody(String body) {
+            this.body = body;
+        }
 
-        public String getPubDate() { return pubDate;}
+        public String getPubDate() {
+            return pubDate;
+        }
 
-        public void setPubDate(String pubDate) { this.pubDate = pubDate;}
+        public void setPubDate(String pubDate) {
+            this.pubDate = pubDate;
+        }
 
-        public int getCommentCount() { return commentCount;}
+        public int getCommentCount() {
+            return commentCount;
+        }
 
-        public void setCommentCount(int commentCount) { this.commentCount = commentCount;}
+        public void setCommentCount(int commentCount) {
+            this.commentCount = commentCount;
+        }
 
-        public String getImgBig() { return imgBig;}
+        public String getImgBig() {
+            return imgBig;
+        }
 
-        public void setImgBig(String imgBig) { this.imgBig = imgBig;}
+        public void setImgBig(String imgBig) {
+            this.imgBig = imgBig;
+        }
 
-        public String getImgSmall() { return imgSmall;}
+        public String getImgSmall() {
+            return imgSmall;
+        }
 
-        public void setImgSmall(String imgSmall) { this.imgSmall = imgSmall;}
+        public void setImgSmall(String imgSmall) {
+            this.imgSmall = imgSmall;
+        }
     }
 }

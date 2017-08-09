@@ -2,16 +2,16 @@ package com.zhengjinbo.newsdemo.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -19,6 +19,7 @@ import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.base.AppConstants;
 import com.zhengjinbo.newsdemo.base.BaseActivity;
 import com.zhengjinbo.newsdemo.base.FragmentCommon;
+import com.zhengjinbo.newsdemo.bean.TokenBean;
 import com.zhengjinbo.newsdemo.fragment.MeFragment;
 import com.zhengjinbo.newsdemo.fragment.NewsFragment;
 import com.zhengjinbo.newsdemo.fragment.TweetFragment;
@@ -36,21 +37,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private static final int REQUEST_CODE = 100;
     @BindView(R.id.bottom_navigation_bar)
     public BottomNavigationBar mBottomNavigationBar;
-
+    public String access_token = "";
+    protected TokenBean tokenBean;
     @BindView(R.id.fl_content)
     FrameLayout mFlContent;
     private ArrayList<Fragment> mFragmentList;
-    public String access_token="";
-
-
-
-    public Handler myHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            access_token = (String) msg.obj;
-            super.handleMessage(msg);
-        }
-    };
-
+    private long mExitTime;
 
     @Override
     protected int getLayout() {
@@ -59,13 +51,16 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     protected void initData() {
+        tokenBean = (TokenBean) getIntent().getSerializableExtra("tokenBean");
+        access_token = tokenBean.getAccess_token();
+        Log.e("access_token", access_token);
+
         initBottomNaviBar();
         initFragmentList();
-
+        //动态注册权限
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            //进入到这里代表没有权限.
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
         }
@@ -88,10 +83,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                     //用户拒绝授权
                 }
                 break;
-//            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
 
 
     /**
@@ -196,7 +189,16 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            System.exit(0);
+
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Toast.makeText(this, "再按一次退出系统",
+                        Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+
+
             return true;
         }
         return false;

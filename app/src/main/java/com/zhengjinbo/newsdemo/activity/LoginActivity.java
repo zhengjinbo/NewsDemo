@@ -2,6 +2,7 @@ package com.zhengjinbo.newsdemo.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,11 +26,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * 注册授权登陆
  * Created by zhengjinbo.
  */
 
 public class LoginActivity extends BaseActivity {
-    private static final int RESULT_CODE = 10086;
     private static final String CLIENT_ID = "BtZoBtnOjnUc3tPlkwXs";
     private static final String CLIENT_SECRET = "lMfgxMRZUqGItiEmsgTEddWgNTHqWk4R";
     private static final String REDIRECT_URL = "http://www.travelease.com.cn";
@@ -45,7 +46,8 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.webView)
     WebView webView;
 
-    String access_token = "";
+    TokenBean tokenBean;
+
 
 
     @Override
@@ -87,8 +89,8 @@ public class LoginActivity extends BaseActivity {
         call.enqueue(new Callback<TokenBean>() {
             @Override
             public void onResponse(Call<TokenBean> call, Response<TokenBean> response) {
-                TokenBean tokenBean = response.body();
-                access_token = tokenBean.getAccess_token();
+                 tokenBean = response.body();
+
 
             }
 
@@ -104,19 +106,19 @@ public class LoginActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //            if (webView.canGoBack()) {
-            //                webView.goBack();   //goBack()表示返回webView的上一页
-            //            } else {
-            //                Intent intent =  new Intent();
-            //                intent.putExtra("access_token",access_token);
-            //                setResult(RESULT_CODE,intent);
-            //
-            //                finish();
-            //            }
-            Intent intent = new Intent();
-            intent.putExtra("access_token", access_token);
-            setResult(RESULT_CODE, intent);
-            finish();
+
+            if (tokenBean!= null) {
+                //跳转到主界面
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("tokenBean", tokenBean);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }else{
+                //退出系统
+                System.exit(0);
+            }
             return true;
         }
         return false;
@@ -128,7 +130,6 @@ public class LoginActivity extends BaseActivity {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
             //     showDialog();
-
             String callback_url = REDIRECT_URL + "/?";
             if (url.startsWith(callback_url)) { //匹配callback_url
                 if (isFrist) {
