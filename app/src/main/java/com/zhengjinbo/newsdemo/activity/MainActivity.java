@@ -195,7 +195,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                         Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
             } else {
-                finish();
+                System.exit(0);
+              //  finish();
             }
 
 

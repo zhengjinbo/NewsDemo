@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.zhengjinbo.newsdemo.R;
-import com.zhengjinbo.newsdemo.activity.PersonInfoActivity;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
 import com.zhengjinbo.newsdemo.bean.PersonInfoBean;
 import com.zhengjinbo.newsdemo.bean.PortraitUpdateBean;
@@ -55,6 +54,21 @@ public class MeFragment extends BaseFragment {
     CircleImageView mIvAvatar;
     @BindView(R.id.tv_message)
     TextView mTvMessage;
+
+    @BindView(R.id.tv_idname)
+    TextView tv_idname;
+    @BindView(R.id.tv_account)
+    TextView tv_account;
+    @BindView(R.id.tv_gender)
+    TextView tv_gender;
+    @BindView(R.id.tv_email)
+    TextView tv_email;
+    @BindView(R.id.tv_location)
+    TextView tv_location;
+    @BindView(R.id.tv_url)
+    TextView tv_url;
+
+
     String access_token = "";
     PersonInfoBean personInfoBean;
 
@@ -115,20 +129,7 @@ public class MeFragment extends BaseFragment {
             }
         });
 
-        mTvMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isLock) {
-                    //获取个人信息
-                    Intent intent = new Intent(getActivity(), PersonInfoActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("personInfoBean", personInfoBean);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, INFO_CODE);
-                }
 
-            }
-        });
 
 
     }
@@ -150,8 +151,11 @@ public class MeFragment extends BaseFragment {
                 hideDialog();
                 personInfoBean = response.body();
                 Picasso.with(mContext).load(personInfoBean.getAvatar()).into(mIvAvatar);
-                mTvMessage.setText("点击查看个人信息");
+                Log.e("getAvatar()",personInfoBean.getAvatar()+"");
+                mTvMessage.setText("点击修改头像");
                 isLock = false;
+                //展示个人信息
+                setData(personInfoBean);
             }
 
             @Override
@@ -162,6 +166,20 @@ public class MeFragment extends BaseFragment {
         });
 
     }
+
+    private void setData(PersonInfoBean personInfoBean) {
+        tv_idname.setText(personInfoBean.getId() + "");
+        tv_account.setText(personInfoBean.getName());
+        if ("male".equals(personInfoBean.getGender())) {
+            tv_gender.setText("女");
+        } else {
+            tv_gender.setText("男");
+        }
+        tv_email.setText(personInfoBean.getEmail());
+        tv_location.setText(personInfoBean.getLocation());
+        tv_url.setText(personInfoBean.getUrl());
+    }
+
 
     protected void startPhotoZoom(Uri uri) {
         if (uri == null) {
