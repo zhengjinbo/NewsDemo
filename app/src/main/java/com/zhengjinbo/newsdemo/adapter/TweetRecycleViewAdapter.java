@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.bean.TweetListBean;
 
@@ -58,7 +58,7 @@ public class TweetRecycleViewAdapter
         holder.mTvName.setText(tweetlistBean.getAuthor());
         holder.mTvContent.setText(Html.fromHtml(tweetlistBean.getBody()));
         holder.mTvPubDate.setText(tweetlistBean.getPubDate());
-        Picasso.with(mContext).load(tweetlistBean.getPortrait()).into(holder.mCircleImg);
+        Glide.with(mContext).load(tweetlistBean.getPortrait()).into(holder.mCircleImg);
 
 
         int commentCount = tweetlistBean.getCommentCount();

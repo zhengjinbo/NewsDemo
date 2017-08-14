@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
 import com.zhengjinbo.newsdemo.bean.PersonInfoBean;
@@ -150,7 +150,7 @@ public class MeFragment extends BaseFragment {
             public void onResponse(Call<PersonInfoBean> call, Response<PersonInfoBean> response) {
                 hideDialog();
                 personInfoBean = response.body();
-                Picasso.with(mContext).load(personInfoBean.getAvatar()).into(mIvAvatar);
+                Glide.with(mContext).load(personInfoBean.getAvatar()).into(mIvAvatar);
                 Log.e("getAvatar()",personInfoBean.getAvatar()+"");
                 mTvMessage.setText("点击修改头像");
                 isLock = false;
